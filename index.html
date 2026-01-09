@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode Toggle</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #f0f0f0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .toggle-container input[type="checkbox"] {
+      width: 40px;
+      height: 20px;
+      appearance: none;
+      background-color: #ccc;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.3s;
+    }
+
+    .toggle-container input[type="checkbox"]::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    .toggle-container input[type="checkbox"]:checked {
+      background-color: #4caf50;
+    }
+
+    .toggle-container input[type="checkbox"]:checked::after {
+      transform: translateX(20px);
+    }
+  </style>
+</head>
+<body>
+  <h1>Dark Mode Toggle Example</h1>
+  <p>Text goes here...</p>
+  <div class="toggle-container">
+    <label for="darkModeToggle">Dark Mode</label>
+    <input type="checkbox" id="darkModeToggle">
+  </div>
+
+  <script>
+    const toggle = document.getElementById('darkModeToggle');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.checked = true;
+    }
+
+    toggle.addEventListener('change', () => {
+      if (toggle.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>
